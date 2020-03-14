@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="minus-icon" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="amount-of-product" type="text" class="form-control text-center" value="1">
+                           <button id="plus-icon" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$ <span id="mobile-price">1219</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="casing-minus-icon" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="amount-of-casing"type="text" class="form-control text-center" value="1">
+                           <button id="casing-plus-icon" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span id="casing-price">59</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$ <span id="subtotal"></span> .00</h5>
+                        <h5>$ <span id="vat"></span> 0</h5>
+                        <h5>$ <span id="total"></span> .00</h5>
+                        
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <script>
+      //plus icon of mobile
+   const plusIconBtn = document.getElementById("plus-icon");
+   plusIconBtn.addEventListener("click",function(){
+      
+      const numberOfMobile = billForPlusBtn("amount-of-product");
+      const totalMobileCost = numberOfMobile* 1219;
+      document.getElementById("mobile-price").innerText = totalMobileCost;
+      const totalBill = bill();
+      
+
+      
+   })
+      //minus icon of mobile
+   const minusIconBtn = document.getElementById("minus-icon");
+   minusIconBtn.addEventListener("click", function(){
+      
+      const numberOfMobile = billForMinusBtn("amount-of-product");
+      const totalMobileCost = numberOfMobile* 1219;
+      document.getElementById("mobile-price").innerText = totalMobileCost;
+      const totalBill = bill();
+   })
+   
+   
+      // plus button for casing 
+      const casingPlusIconBtn = document.getElementById("casing-plus-icon");
+      casingPlusIconBtn.addEventListener("click",function(){
+         
+      const numberOfCasing = billForPlusBtn("amount-of-casing");
+      const totalCasingCost = numberOfCasing* 59;
+      document.getElementById("casing-price").innerText = totalCasingCost; 
+      const totalBill = bill();      
+      })
+      // minus button for casing 
+      const casingMinusIconBtn = document.getElementById("casing-minus-icon");
+      casingMinusIconBtn.addEventListener("click", function(){
+         
+      const numberOfCasing = billForMinusBtn("amount-of-casing");
+      const totalCasingCost = numberOfCasing* 59;
+      document.getElementById("casing-price").innerText = totalCasingCost;
+      const totalBill = bill();
+      })
+       
+
+     function bill(){
+        const mobileBill = document.getElementById("mobile-price").innerText;
+        const totalMobileBill = parseFloat(mobileBill);
+        const casingBill = document.getElementById("casing-price").innerText;
+        const totalCasingBill = parseFloat(casingBill);
+        const totalBill = totalMobileBill + totalCasingBill;
+         document.getElementById("subtotal").innerText = totalBill;
+         document.getElementById("total").innerText = totalBill;
+        return totalBill;
+     } 
+
+   function billForPlusBtn(id){
+      const amountOfProductNumber = getProductNumber(id);
+      const totalAmount = amountOfProductNumber + 1;
+      document.getElementById(id).value = totalAmount;
+      return totalAmount;
+      
+   }
+   
+
+   function billForMinusBtn(id){
+      const amountOfProductNumber = getProductNumber(id);
+      const totalAmount = amountOfProductNumber - 1;
+      document.getElementById(id).value = totalAmount;
+      return totalAmount;
+     
+   }
+
+   function getProductNumber(id){
+      const amountOfProduct = document.getElementById(id).value;
+      const amountOfProductNumber = parseFloat(amountOfProduct);
+      return amountOfProductNumber;
+   }
+   </script>
+</body>
+
+</html>
